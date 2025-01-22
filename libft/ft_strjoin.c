@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/12 18:33:32 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/22 19:25:06 by sel-abbo         ###   ########.fr       */
+/*   Created: 2024/10/28 19:15:18 by sel-abbo          #+#    #+#             */
+/*   Updated: 2024/10/28 19:50:21 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-# include <unistd.h>
-# include <stdio.h>
-# include <signal.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include "ft_printf/ft_printf.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-char *ft_ctostr(char c);
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*res;
+	size_t	len_s1;
+	size_t	len_s2;
 
-#endif
+	i = 0;
+	j = 0;
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	res = (char *)malloc(len_s1 + len_s2 + 1);
+	if (!res)
+		return (0);
+	while (s1[i])
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
+}

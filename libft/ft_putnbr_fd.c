@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 18:08:59 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/22 19:29:40 by sel-abbo         ###   ########.fr       */
+/*   Created: 2024/11/03 21:28:43 by sel-abbo          #+#    #+#             */
+/*   Updated: 2024/11/03 21:46:53 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-char *ft_ctostr(char c)
+void	ft_putnbr_fd(int n, int fd)
 {
-    char *str;
+	long	nb;
 
-    str = (char *)malloc(2 * sizeof(char));
-    if (!str)
-        return (NULL);
-    str[0] = c;
-    str[1] = '\0';
-    return (str);
+	nb = n;
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nb *= -1;
+	}
+	if (nb < 10)
+	{
+		ft_putchar_fd(nb + 48, fd);
+	}
+	else
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
+	}
 }

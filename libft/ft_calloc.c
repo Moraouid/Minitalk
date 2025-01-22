@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/12 18:33:32 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/22 19:25:06 by sel-abbo         ###   ########.fr       */
+/*   Created: 2024/10/27 21:49:16 by sel-abbo          #+#    #+#             */
+/*   Updated: 2024/10/27 23:26:22 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-# include <unistd.h>
-# include <stdio.h>
-# include <signal.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include "ft_printf/ft_printf.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-char *ft_ctostr(char c);
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*r;
 
-#endif
+	r = (void *)malloc(nmemb * size);
+	if (!r)
+		return (0);
+	ft_bzero(r, (nmemb * size));
+	return (r);
+}

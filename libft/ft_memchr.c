@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 18:08:59 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/22 19:29:40 by sel-abbo         ###   ########.fr       */
+/*   Created: 2024/10/26 14:56:10 by sel-abbo          #+#    #+#             */
+/*   Updated: 2024/11/04 16:18:29 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-char *ft_ctostr(char c)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-    char *str;
+	size_t			i;
+	unsigned char	*str;
 
-    str = (char *)malloc(2 * sizeof(char));
-    if (!str)
-        return (NULL);
-    str[0] = c;
-    str[1] = '\0';
-    return (str);
+	i = 0;
+	str = (unsigned char *)s;
+	while (i < n)
+	{
+		if (str[i] == (unsigned char)c)
+			return ((unsigned char *)&str[i]);
+		i++;
+	}
+	return (0);
 }

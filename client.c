@@ -6,7 +6,7 @@
 /*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:33:39 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/20 20:00:58 by sel-abbo         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:19:27 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int main(int ac, char **av)
 	int i = 0;
 	struct sigaction sa;
     sa.sa_handler = signal_check;
-    sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
 
 	if (ac != 3)
 	{
