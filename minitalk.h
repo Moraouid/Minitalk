@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:33:32 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/22 19:25:06 by sel-abbo         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:58:07 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 # include "ft_printf/ft_printf.h"
 # include "libft/libft.h"
 
-char *ft_ctostr(char c);
+char	*ft_join(char *s1, char s2);
 
 #endif

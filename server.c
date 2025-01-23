@@ -3,33 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:33:47 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/22 19:53:07 by sel-abbo         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:02:02 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-
-void signal_handler(int sig, siginfo_t *info, void *context)
+void signal_handler(int sig)
 {
     static int bit_count = 0;
-    static char current_char = 0;
-    static pid_t client_pid = 0;
-    char    *mssg;
-    char    *tmp;
+    static char c;
+    static char    *mssg;
 
-    if (client_pid == 0)
-        client_pid = info->si_pid;
     if (sig == SIGUSR1)
-        current_char |= (1 << (7 - bit_count));
+        c |= (1 << (7 - bit_count));
     bit_count++;
-    tmp = &current_char;
+    if (!mssg)
+        mssg = ft_strdup("");
     if (bit_count == 8)
     {
-        if (current_char == '\0')
+        if (c == '\0')
         {
             ft_printf("%s", mssg);
             free(mssg);
@@ -37,32 +33,22 @@ void signal_handler(int sig, siginfo_t *info, void *context)
         }
         else
         {
-            tmp = ft_strjoin(mssg, ft_ctostr(current_char));
-            if (!tmp)
-            {
-                if (mssg)
-                    free(mssg);
-                mssg = NULL;
+            mssg = ft_join(mssg, c);
+            if (!mssg)
                 return;
-            }
         }
         bit_count = 0;
-        current_char = 0;
+        c = 0;
     }
-    kill(client_pid, SIGUSR1);
 }
 
 int main()
 {
-    pid_t pid = getpid();
-    struct sigaction sa;
-    sa.sa_sigaction = signal_handler;
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
+    int pid = getpid();
     
     printf("Server PID: %d\n", pid);
-    sigaction(SIGUSR1, &sa, NULL);
-    sigaction(SIGUSR2, &sa, NULL);
+    signal(SIGUSR1,signal_handler);
+    signal(SIGUSR2,signal_handler);
 
     while (1)
         pause();

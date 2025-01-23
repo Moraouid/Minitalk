@@ -6,7 +6,7 @@
 #    By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/04 11:56:22 by sel-abbo          #+#    #+#              #
-#    Updated: 2024/11/08 19:38:24 by sel-abbo         ###   ########.fr        #
+#    Updated: 2025/01/23 12:01:19 by sel-abbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,7 @@ FILES = ft_atoi.c ft_itoa.c ft_putnbr_fd.c ft_strlen.c ft_toupper.c ft_bzero.c \
 		ft_strnstr.c ft_isalpha.c ft_memmove.c ft_strdup.c ft_strrchr.c \
 		ft_isascii.c ft_memset.c ft_strjoin.c ft_strtrim.c ft_isdigit.c \
 		ft_putchar_fd.c ft_strlcat.c ft_substr.c ft_isprint.c  ft_putendl_fd.c \
-		ft_strlcpy.c ft_tolower.c ft_striteri.c
-
-BFILES = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstlast_bonus.c \
-		ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstsize_bonus.c \
-		ft_lstnew_bonus.c		
+		ft_strlcpy.c ft_tolower.c ft_striteri.c		
 
 OB = ${FILES:.c=.o}
 BOB = ${BFILES:.c=.o}
@@ -39,8 +35,6 @@ ${NAME}: ${OB}
 
 all: ${NAME}
 
-bonus: ${BOB}
-	${ARCH} ${NAME} ${BOB}
 
 clean:
 	${RM} ${OB} ${BOB}
@@ -50,4 +44,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re

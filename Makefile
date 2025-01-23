@@ -3,38 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sel-abbo <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/12 18:33:43 by sel-abbo          #+#    #+#              #
-#    Updated: 2025/01/22 18:33:17 by sel-abbo         ###   ########.fr        #
+#    Updated: 2025/01/23 11:53:17 by sel-abbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minitalk.a
-CC = cc
 FLAGS = -Wall -Wextra -Werror
-ARCH = ar rcs
-RM = rm -f
 
-FILES = client.c server.c utilis.c
-
-OB = ${FILES:.c=.o}
-
-%.o: %.c
-	${CC} ${FLAGS} -c $< -o $@
-
-${NAME}: ${OB}
-	${ARCH} ${NAME} ${OB}
-
-all: ${NAME}
+all: printf libft
+	cc $(FLAGS) server.c -o server libft/libft.a ft_printf/libftprintf.a utils.c
+	cc $(FLAGS) client.c -o client libft/libft.a ft_printf/libftprintf.a
 
 printf:
-	$(MAKE)
+	$(MAKE) -C ft_printf
+libft:
+	$(MAKE) -C libft
 
 clean:
-	${RM} ${OB}
+	$(MAKE) -C ft_printf clean
+	$(MAKE) -C libft clean
+	rm -f server client 
 
-fclean: clean 
-	${RM} ${NAME}
+fclean:
+	$(MAKE) -C ft_printf fclean
+	$(MAKE) -C libft fclean
+	rm -f server client
 
 re: fclean all
+
+.PHONY: all printf libft clean fclean re
