@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/12 18:33:47 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/24 15:10:31 by sel-abbo         ###   ########.fr       */
+/*   Created: 2025/01/24 11:07:35 by sel-abbo          #+#    #+#             */
+/*   Updated: 2025/01/24 15:19:47 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	signal_handler(int sig)
+void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	static int	bit_count;
 	static char	c;
 
-	bit_count = 0;
+	(void)context;
 	if (sig == SIGUSR1)
 		c |= (1 << (7 - bit_count));
 	bit_count++;
 	if (bit_count == 8)
 	{
-		write(1, &c, 1);
+		if (c == '\0')
+		{
+			kill(info->si_pid, SIGUSR1);
+		}
+		else
+			write(1, &c, 1);
 		bit_count = 0;
 		c = 0;
 	}
@@ -31,12 +36,14 @@ void	signal_handler(int sig)
 
 int	main(void)
 {
-	int	pid;
+	struct sigaction	sa;
 
-	pid = getpid();
-	ft_printf("Server PID: %d\n", pid);
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
+	sa.sa_sigaction = handle_signal;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	ft_printf("Server_bonus PID: %d\n", getpid());
 	while (1)
 		pause();
 	return (0);

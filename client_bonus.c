@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-abbo <sel-abbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/12 18:33:39 by sel-abbo          #+#    #+#             */
-/*   Updated: 2025/01/24 15:09:50 by sel-abbo         ###   ########.fr       */
+/*   Created: 2025/01/24 11:07:12 by sel-abbo          #+#    #+#             */
+/*   Updated: 2025/01/24 15:15:38 by sel-abbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	ft_confirm(int sig)
+{
+	if (sig == SIGUSR1)
+		ft_printf("Message sent successfully\n");
+}
 
 void	send_char(int pid, char c)
 {
@@ -35,10 +41,7 @@ int	main(int ac, char **av)
 
 	i = 0;
 	if (ac != 3)
-	{
-		write(1, "Usage: ./client <PID> <message>\n", 31);
-		return (1);
-	}
+		return (write(1, "Usage: ./client_bonus <PID> <message>\n", 38));
 	pid = atoi(av[1]);
 	if (pid <= 0)
 	{
@@ -50,5 +53,6 @@ int	main(int ac, char **av)
 		send_char(pid, av[2][i]);
 		i++;
 	}
+	signal(SIGUSR1, ft_confirm);
 	send_char(pid, '\0');
 }
